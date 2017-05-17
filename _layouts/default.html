@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>La team a valraiso</title>
+  <meta name="description" content="La team a valraiso :)">
+
+  <link rel="stylesheet" href="{{ " css/main.css " | prepend: site.baseurl }}">
+  <link rel="canonical" href="{{ page.url | replace:'index.html','' | prepend: site.baseurl | prepend: site.url }}">
+  <link rel="alternate" type="application/rss+xml" title="{{ site.title }}" href="{{ " /feed.xml " | prepend: site.baseurl | prepend: site.url }}">
+</head>
+
+
+<body>
+
+  <header class="site-header">
+    <div class="wrapper">
+      <a class="site-title" href="/">La team a valraiso</a>
+    </div>
+  </header>
+
+  <div class="page-content">
+    <div class="wrapper">
+      {{ content }}
+    </div>
+  </div>
+  <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+
+  <script>
+    var shuffle = function(array){
+      var currentIndex = array.length,
+        temporaryValue, randomIndex;
+
+      // While there remain elements to shuffle...
+      while (0 !== currentIndex) {
+
+        // Pick a remaining element...
+        randomIndex = Math.floor(Math.random() * currentIndex);
+        currentIndex -= 1;
+
+        // And swap it with the current element.
+        temporaryValue = array[currentIndex];
+        array[currentIndex] = array[randomIndex];
+        array[randomIndex] = temporaryValue;
+      }
+
+      return array;
+    };
+
+    var makeTeams = function(all){
+      var shuffled = shuffle(all);
+      var arr = []
+      while(shuffled.length > 0){
+        var player1 = shuffled.pop();
+        var current = [player1]
+        if(shuffled.length > 0) {
+          current.push(shuffled.pop())
+        }
+        arr.push(current)
+      }
+      $('.teams .team').remove();
+      for(var i=0; i<arr.length; i++){
+        var current = arr[i];
+        var ix = 1+i
+        var text = current.length === 2
+          ? current[0] + ' - ' + current[1]
+          : current[0]
+        $('.teams .wrapper').append('<div class="team"><span class="badge">' + ix +'</span> ' + text +'</div>')
+      }
+      $('.teams').addClass('in')
+
+    };
+
+    $(function() {
+      $(document).on('click', 'li a', function(e) {
+
+        $(this).toggleClass('selected');
+        e.preventDefault();
+      });
+
+      $(document).on('click', '#generate', function(e) {
+        var all = $('li a.selected').map(function(i, x) {
+          return $(x).text().trim();
+        }).get();
+        makeTeams(all)
+      });
+      $(document).on('click', '#choose', function(e){
+        $('.teams').removeClass('in')
+      })
+    })
+  </script>
+</body>
+
+</html>

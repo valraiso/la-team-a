@@ -1,0 +1,24 @@
+---
+layout: default
+---
+
+<div class="home">
+  <ul class="list">
+    {% for s in site.data.players %}
+    <li>
+      <a href="#">
+        {{ s }}
+      </a>
+    </li>
+    {% endfor %}
+  </ul>
+  <div class="btn" id="generate">Générer les equipes</div>
+</div>
+
+<div class="teams">
+  <div class="wrapper">
+    <div class="team"><span class="badge">1</span> ben + mitch</div>
+    <div class="team"><span class="badge">2</span> fyv + silouane</div>
+  </div>
+  <div class="btn" id="choose">Choisir les joueurs</div>
+</div>
