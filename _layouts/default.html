@@ -82,6 +82,10 @@
         e.preventDefault();
       });
 
+      $(document).on('click', '#toggle', function (e) {
+        $('li a').toggleClass('selected');
+      });
+
       $(document).on('click', '#generate', function(e) {
         var all = $('li a.selected').map(function(i, x) {
           return $(x).text().trim();
